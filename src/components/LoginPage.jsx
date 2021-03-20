@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import {useHistory} from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const LoginPage = () => {
+const LoginPage = ({userLoggedIn}) => {
   const history = useHistory();
-  let [mail, setMail] = useState("");
-  let [password, setPassword] = useState("");
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
   const [buttonHidden, setButtonHidden] = useState(false);
   
   useEffect(() => {
-    console.log("Component Did Mount - LoginPage")
+    //console.log("Component Did Mount - LoginPage")
   }, []);
 
   useEffect(() => {
@@ -25,26 +26,31 @@ const LoginPage = () => {
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "include",
       body: JSON.stringify({
-        mail: mail,
+        email: mail,
         password: password,
       })
     }).then((res) => res.json())
     .then((res) => {
       console.log(res);
-      setMail="";
-      setPassword="";
+      
+      if(res.userEmail){
+      userLoggedIn(res.userEmail, res.userName, res.userId);
+      setMail("");
+      setPassword("");
       setButtonHidden(false);
       history.push('/');
+      }
     })
     .catch(err => console.log(err));
   }
 
   return (
-    <div className="conttainer-fluid">
+    <div className="container-fluid login-box">
       
       <label htmlFor="target" className="input-group">
-        Target Mail :{" "}
+        Enter your mail :{" "}
       </label>
       <input
         type="text"
@@ -56,7 +62,7 @@ const LoginPage = () => {
       />
       <br />
       <label className="input-group" htmlFor="password">
-        Password :{" "}
+        Enter your password :{" "}
       </label>
       <input
         className=" input-group"
@@ -74,4 +80,16 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userLoggedIn: (userEmail, userName, userId) => dispatch({type: 'LOGIN', mail: userEmail, name: userName, id: userId })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

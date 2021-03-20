@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {useHistory} from 'react-router-dom';
 
-const LoginPage = () => {
+const SignupPage = () => {
     const history = useHistory();
     let [name, setName] = useState("");
     let [mail, setMail] = useState("");
@@ -9,7 +9,7 @@ const LoginPage = () => {
     const [buttonHidden, setButtonHidden] = useState(false);
     
     useEffect(() => {
-      console.log("Component Did Mount - LoginPage")
+      //console.log("Component Did Mount - SignupPage")
     }, []);
   
     useEffect(() => {
@@ -20,7 +20,7 @@ const LoginPage = () => {
       }
     }, [name, mail, password])
   
-    const handleLogin = () => {
+    const handleSignup = () => {
       fetch(`${process.env.REACT_APP_SERVER_URL}/signup`, {
         method: "POST",
         headers: {
@@ -28,26 +28,29 @@ const LoginPage = () => {
         },
         body: JSON.stringify({
           name: name,
-          mail: mail,
+          email: mail,
           password: password,
         })
       }).then((res) => res.json())
       .then((res) => {
         console.log(res);
+
+        if(res.userEmail){
         setName="";
         setMail="";
         setPassword="";
         setButtonHidden(false);
         history.push("/");
+        }
       })
       .catch(err => console.log(err));
     }
   
     return (
-      <div className="conttainer-fluid">
+      <div className="conttainer-fluid signup-box">
         
         <label htmlFor="target" className="input-group">
-          Target Mail :{" "}
+          Enter your name :{" "}
         </label>
         <input
           type="text"
@@ -59,7 +62,7 @@ const LoginPage = () => {
         />
         <br />
         <label htmlFor="target" className="input-group">
-          Target Mail :{" "}
+        Enter your mail :{" "}
         </label>
         <input
           type="text"
@@ -71,7 +74,7 @@ const LoginPage = () => {
         />
         <br />
         <label className="input-group" htmlFor="password">
-          Password :{" "}
+        Enter your password :{" "}
         </label>
         <input
           className=" input-group"
@@ -82,11 +85,11 @@ const LoginPage = () => {
           placeholder="Enter your password"
         />
         <br />
-        <button type="button" disabled={buttonHidden} className="btn btn-primary mt-3 mb-3" onClick={handleLogin}>
-          Login
+        <button type="button" disabled={buttonHidden} className="btn btn-primary mt-3 mb-3" onClick={handleSignup}>
+          Signup
         </button>
       </div>
     );
   };
   
-  export default LoginPage;
+  export default SignupPage;

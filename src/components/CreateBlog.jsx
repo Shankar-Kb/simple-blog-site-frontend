@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const CreateBlog = () => {
+const CreateBlog = ({userId, userName}) => {
     const history = useHistory();
     const [title, setTitle] = useState("");
     const [snippet, setSnippet] = useState("");
@@ -18,20 +19,23 @@ const CreateBlog = () => {
   
     const handleCreateBlog = () => {
 
-      fetch(`${process.env.REACT_APP_SERVER_URL}/create-message`, {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/create-blog`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
+        credentials: "include",
         body: JSON.stringify({
           title: title,
           body: body,
-          snippet: snippet
+          snippet: snippet,
+          authorId: userId,
+          authorName: userName
         })
       }).then((res) => res.json())
       .then((res) => {
         console.log(res);
-        history.go(0);
+        history.push('/');
       })
       .catch(err => console.log(err));
     }
@@ -57,7 +61,7 @@ const CreateBlog = () => {
         />
         <br />
         <label className="input-group" htmlFor="blog-snippet">
-          Blog Content:{" "}
+          Blog Snippet:{" "}
         </label>
         <input
           className=" input-group"
@@ -77,7 +81,7 @@ const CreateBlog = () => {
           id="blog-body"
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          placeholder="Enter the secret message here..."
+          placeholder="Enter the content for your blog"
           rows="6"
         />
         <br />
@@ -89,4 +93,11 @@ const CreateBlog = () => {
     );
 }
 
-export default CreateBlog;
+const mapStateToProps = (state) => {
+  return {
+    userName: state.userName,
+    userId: state.userId
+  }
+}
+
+export default connect(mapStateToProps)(CreateBlog);
