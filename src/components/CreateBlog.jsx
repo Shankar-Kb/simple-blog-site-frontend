@@ -41,18 +41,17 @@ const CreateBlog = ({userId, userName}) => {
     }
   
     return (
-      <div className="container-fluid">
+      <div className="create-blog-box">
 
         <div className="create-blog-top">
           <h1 className="mt-2 mb-3 d-inline-block">Create a blog</h1>
-          <button className="btn btn-secondary float-right mt-3" onClick={() => history.push('/') }>Back</button>
         </div>
 
         <label className="input-group" htmlFor="blog-title">
           Blog Title :{" "}
         </label>
         <input
-          className=" input-group"
+          className="form-control"
           type="text"
           id="blog-title"
           value={title}
@@ -64,7 +63,7 @@ const CreateBlog = ({userId, userName}) => {
           Blog Snippet:{" "}
         </label>
         <input
-          className=" input-group"
+          className="form-control"
           type="text"
           value={snippet}
           onChange={(e) => setSnippet(e.target.value)}
@@ -76,7 +75,7 @@ const CreateBlog = ({userId, userName}) => {
           Blog Content :{" "}
         </label>
         <textarea
-          className=" input-group"
+          className="form-control"
           type="text"
           id="blog-body"
           value={body}
@@ -85,10 +84,12 @@ const CreateBlog = ({userId, userName}) => {
           rows="6"
         />
         <br />
-        
-        <button type="button" disabled={buttonHidden} className="btn btn-primary mt-3 mb-3" onClick={handleCreateBlog}>
-          Send
+        <div className="create-blog-bottom">
+        <button className="btn btn-outline-danger" onClick={() => history.push('/') }>Back</button>
+        <button type="button" disabled={buttonHidden} className="btn btn-outline-primary" onClick={handleCreateBlog}>
+          Create
         </button>
+        </div>
       </div>
     );
 }

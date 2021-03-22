@@ -47,7 +47,7 @@ const SignupPage = () => {
     }
   
     return (
-      <div className="conttainer-fluid signup-box">
+      <div className="signup-box">
         
         <label htmlFor="target" className="input-group">
           Enter your name :{" "}
@@ -55,7 +55,7 @@ const SignupPage = () => {
         <input
           type="text"
           id="target"
-          className="input-group"
+          className="form-control"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter your name"
@@ -67,7 +67,7 @@ const SignupPage = () => {
         <input
           type="text"
           id="target"
-          className="input-group"
+          className="form-control"
           value={mail}
           onChange={(e) => setMail(e.target.value)}
           placeholder="Enter your email"
@@ -77,7 +77,7 @@ const SignupPage = () => {
         Enter your password :{" "}
         </label>
         <input
-          className=" input-group"
+          className="form-control"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -85,7 +85,7 @@ const SignupPage = () => {
           placeholder="Enter your password"
         />
         <br />
-        <button type="button" disabled={buttonHidden} className="btn btn-primary mt-3 mb-3" onClick={handleSignup}>
+        <button type="button" disabled={buttonHidden} className="btn btn-dark" onClick={handleSignup}>
           Signup
         </button>
       </div>

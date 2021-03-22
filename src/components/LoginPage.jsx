@@ -47,25 +47,27 @@ const LoginPage = ({userLoggedIn}) => {
   }
 
   return (
-    <div className="container-fluid login-box">
+    <div className="login-box">
       
+
       <label htmlFor="target" className="input-group">
         Enter your mail :{" "}
       </label>
       <input
         type="text"
         id="target"
-        className="input-group"
+        className="form-control"
         value={mail}
         onChange={(e) => setMail(e.target.value)}
         placeholder="Enter your email"
       />
       <br />
+
       <label className="input-group" htmlFor="password">
         Enter your password :{" "}
       </label>
       <input
-        className=" input-group"
+        className=" form-control"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -73,7 +75,7 @@ const LoginPage = ({userLoggedIn}) => {
         placeholder="Enter your password"
       />
       <br />
-      <button type="button" disabled={buttonHidden} className="btn btn-primary mt-3 mb-3" onClick={handleLogin}>
+      <button type="button" disabled={buttonHidden} className="btn btn-dark" onClick={handleLogin}>
         Login
       </button>
     </div>

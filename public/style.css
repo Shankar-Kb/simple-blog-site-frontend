@@ -1,4 +1,13 @@
-body {
-    background-color: #191919;
-    color: #fff;
+html, body{
+    margin: 0;
+    padding: 0;
+    border: none;
+    height: 100%;
+}
+.root, .app-box, .homepage{
+    height: 80vh;
+}
+
+.homepage{
+    margin-top: 50px;
 }

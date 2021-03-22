@@ -1,1 +1,63 @@
 /* LoginPage */
+.login-box, .signup-box, .create-blog-box{
+    border: 1px solid #6c757d;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    left: 25%;
+    top: 20%;
+    padding: 20px;
+    padding-top: 25px;
+    border-radius: 5px;
+}
+
+.login-box, .signup-box, .create-blog-box > input {
+    margin-bottom: 10px;
+}
+
+.navbar-container{
+    box-shadow: 0 5px 6px -6px black;
+}
+.navbar-right-box > a {
+    margin-right: 15px;
+}
+
+.blog-details-box{
+    height: 80vh;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: 50px 500px;
+}
+
+.blog-box{
+    width: 100%;
+    padding: 10px 0px;
+}
+
+.blogs-search-box{
+    margin-bottom: 15px;
+}
+
+.create-comment-box{
+    width: 75%;
+}
+
+.spinner-border{
+    top: 50%;
+    left: 50%;
+}
+
+.user-blogs-box{
+    margin-top: 50px;
+}
+
+.create-blog-bottom{
+    margin-top: 15px;
+}
+.create-blog-bottom > button{
+    margin: 0px 10px;
+}
