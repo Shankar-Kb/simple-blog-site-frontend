@@ -30,6 +30,7 @@ const SignupPage = () => {
           name: name,
           email: mail,
           password: password,
+          role: 'basic',
         })
       }).then((res) => res.json())
       .then((res) => {

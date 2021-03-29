@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 //import Cookies from 'universal-cookie';
 //const cookies = new Cookies();
 
-const NavbarComp = ({loggedIn, userLoggedOut, userLoggedIn}) => {
+const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
 
   useEffect(() => {
     //let cookie = cookies.get("jwt");
@@ -16,7 +16,7 @@ const NavbarComp = ({loggedIn, userLoggedOut, userLoggedIn}) => {
         .then((res) => {
             //console.log(res);
             if(!res.error){
-            userLoggedIn(res.userEmail, res.userName, res.userId);
+            userLoggedIn(res.userEmail, res.userName, res.userId, res.userRole);
             }
         })
         .catch((error) => console.log(error))
@@ -44,6 +44,7 @@ const NavbarComp = ({loggedIn, userLoggedOut, userLoggedIn}) => {
         <Link className="navbar-brand" to="/">Simple Blog Site</Link>
         {loggedIn ?
         <div className="navbar-right-box">
+        { (userRole==='admin') && <Link className="btn btn-dark" to="/admin-panel">Admin Panel</Link>}
         <Link className="btn btn-dark" to="/create-blog">Create a Blog</Link>
         <Link className="btn btn-dark" to="/user-blogs">My Blogs</Link>
         <button type="button" className="btn btn-dark mt-3 mb-3" onClick={handleLogout}>Logout</button>
@@ -60,6 +61,7 @@ const NavbarComp = ({loggedIn, userLoggedOut, userLoggedIn}) => {
 
 const mapStateToProps = (state) => {
   return {
+    userRole: state.userRole,
     loggedIn: state.loggedIn
   }
 }
@@ -67,7 +69,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     userLoggedOut: () => dispatch({type: 'LOGOUT'}),
-    userLoggedIn: (userEmail, userName, userId) => dispatch({type: 'LOGIN', mail: userEmail, name: userName, id: userId })
+    userLoggedIn: (userEmail, userName, userId, userRole) => dispatch({type: 'LOGIN', mail: userEmail, name: userName, id: userId, role: userRole })
   }
 }
 

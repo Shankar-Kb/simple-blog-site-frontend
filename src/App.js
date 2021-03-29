@@ -7,6 +7,7 @@ import CreateBlog from './components/CreateBlog'
 import NavbarComp from './components/NavbarComp'
 import UserBlogs from './components/UserBlogs'
 import BlogDetailsPage from './components/BlogDetailsPage'
+import AdminPanel from './components/AdminPanel'
 import './App.css';
 
 function App() {
@@ -17,11 +18,6 @@ function App() {
         
         <NavbarComp />
         <Switch>
-            <Route exact path='/' render = {(props) => {
-                return (
-                    <HomePage {...props} />
-                );
-            }} />
             <Route exact path='/login' render = {(props) => {
                 return (
                     <LoginPage {...props} />
@@ -46,6 +42,16 @@ function App() {
                 return (
                     <BlogDetailsPage {...props} />
                 )
+            }} />
+            <Route exact path='/admin-panel' render = {(props) => {
+                return (
+                    <AdminPanel {...props} />
+                )
+            }} />
+            <Route exact path='/' render = {(props) => {
+                return (
+                    <HomePage {...props} />
+                );
             }} />
         </Switch>
         

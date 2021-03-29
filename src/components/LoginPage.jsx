@@ -36,7 +36,7 @@ const LoginPage = ({userLoggedIn}) => {
       console.log(res);
       
       if(res.userEmail){
-      userLoggedIn(res.userEmail, res.userName, res.userId);
+      userLoggedIn(res.userEmail, res.userName, res.userId, res.userRole);
       setMail("");
       setPassword("");
       setButtonHidden(false);
@@ -49,7 +49,6 @@ const LoginPage = ({userLoggedIn}) => {
   return (
     <div className="login-box">
       
-
       <label htmlFor="target" className="input-group">
         Enter your mail :{" "}
       </label>
@@ -90,7 +89,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    userLoggedIn: (userEmail, userName, userId) => dispatch({type: 'LOGIN', mail: userEmail, name: userName, id: userId })
+    userLoggedIn: (userEmail, userName, userId, userRole) => dispatch({type: 'LOGIN', mail: userEmail, name: userName, id: userId, role: userRole })
   }
 }
 

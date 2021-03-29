@@ -2,6 +2,7 @@ const initState = {
     userEmail: "",
     userName: "",
     userId: "",
+    userRole: "",
     loggedIn: false
   }
   
@@ -13,6 +14,7 @@ const initState = {
        userEmail: action.email,
        userName: action.name,
        userId: action.id,
+       userRole: action.role,
        loggedIn: true
      }
     }
@@ -22,6 +24,7 @@ const initState = {
         userEmail: "",
         userName: "",
         userId: "",
+        userRole: "",
         loggedIn: false
       }
     }
