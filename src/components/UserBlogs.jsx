@@ -71,14 +71,14 @@ const UserBlogs = ({userId}) => {
             showUserBlogs(); 
         })
     }
-
+    
     useEffect(showUserBlogs, [userId]);
 
     return (
         <div className="container-fluid user-blogs-box col-6 offset-3">
             {blogs.map((elem, index) => (
                 <div key={index} className="blog-box card card-body">
-                    <Link className="card-title" to={`/blog/${elem._id}`}><h3>{elem.title}</h3></Link>
+                    <Link className="card-title" to={`/blog/${elem._id}`} style={{ textDecoration: 'none' }}><h3 className="blog-title">{elem.title}</h3></Link>
                     <p className="card-text"> {elem.snippet} </p>
                     <p className="card-text"> {elem.body} </p>
                     <p> <b>Written By:</b> {elem.authorName}</p>
@@ -89,7 +89,7 @@ const UserBlogs = ({userId}) => {
                     </div>
                 </div>
             ))}
-
+            
             <Modal show={show} onHide={handleModalClose} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
                 <Modal.Title> Edit your blog </Modal.Title>

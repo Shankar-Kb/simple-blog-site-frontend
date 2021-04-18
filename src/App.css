@@ -1,5 +1,5 @@
 /* LoginPage */
-.login-box, .signup-box, .create-blog-box{
+.login-box, .signup-box, .create-blog-box, .forgot-password-box, .reset-password-box{
     border: 1px solid #6c757d;
     position: relative;
     display: flex;
@@ -23,6 +23,17 @@
 }
 .navbar-right-box > a {
     margin-right: 15px;
+}
+
+.blog-title {
+    color: rgb(70, 70, 70);
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.blog-body > a:hover{ 
+    text-decoration: none !important;
+
 }
 
 .blog-details-box{
@@ -60,4 +71,9 @@
 }
 .create-blog-bottom > button{
     margin: 0px 10px;
+}
+
+/* Admin Panel */
+.users-box{
+    margin-top: 25px;
 }

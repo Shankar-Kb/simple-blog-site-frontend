@@ -76,7 +76,7 @@ const BlogDetailsPage = ({loggedIn}) => {
                 loaded ?
                     <>
                         <div className="blog-box">
-                            <h3> {blog.title} </h3>
+                            <h3 className="blog-title"> {blog.title} </h3>
                             <p> {blog.body} </p>
                             <p> <b>Written By:</b> {blog.authorName}</p>
                             <p> <b>Written At:</b> {new Date(blog.createdAt).toString().replace(" GMT+0530 (India Standard Time)", "")}</p>
@@ -84,7 +84,7 @@ const BlogDetailsPage = ({loggedIn}) => {
 
                         <div className="comments-box">
                             <h2> Comments </h2>
-                            {
+                            {   (comments.length === 0) ? <p className="text-center">No Comments</p> :
                                 comments.map((elem, index) => (
                                     <div key={index} className="comment-box card card-body">
                                         <p> <b>{elem.authorName}:</b> {elem.body} <br />

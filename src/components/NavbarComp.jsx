@@ -1,15 +1,30 @@
-import React, {useEffect} from "react";
-import {Link} from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //import Cookies from 'universal-cookie';
 //const cookies = new Cookies();
 
+function doesHttpOnlyCookieExist(cookiename) {
+  const d = new Date();
+  d.setTime(d.getTime() + (1000));
+  const expires = "expires=" + d.toUTCString();
+
+  document.cookie = cookiename + "=new_value;path=/;" + expires;
+  if (document.cookie.indexOf(cookiename + '=') === -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
+
+  const history = useHistory();
 
   useEffect(() => {
     //let cookie = cookies.get("jwt");
-
+    if(doesHttpOnlyCookieExist('jwt')){
     fetch(`${process.env.REACT_APP_SERVER_URL}/login-check`, {
       credentials: "include"})
         .then((res) => res.json())
@@ -20,9 +35,9 @@ const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
             }
         })
         .catch((error) => console.log(error))
-
+    }
   }, [userLoggedIn]);
-
+  
   const handleLogout = () => {
     //Logout code goes here
     userLoggedOut();
@@ -32,9 +47,13 @@ const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
+        history.go(0);
         }
       )
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err)
+        history.go(0);
+      });
   }
 
 

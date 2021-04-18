@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import {useHistory} from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+//import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 
-const LoginPage = ({userLoggedIn}) => {
+const LoginPage = () => {
+
   const history = useHistory();
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [buttonHidden, setButtonHidden] = useState(false);
+
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const dispatch = useDispatch();
   
   useEffect(() => {
     //console.log("Component Did Mount - LoginPage")
-  }, []);
+    if(isLoggedIn) history.push('/');
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if(mail.length > 0 && password.length > 0){
@@ -36,7 +42,8 @@ const LoginPage = ({userLoggedIn}) => {
       console.log(res);
       
       if(res.userEmail){
-      userLoggedIn(res.userEmail, res.userName, res.userId, res.userRole);
+      //userLoggedIn(res.userEmail, res.userName, res.userId, res.userRole);
+      dispatch({ type: 'LOGIN', mail: res.userEmail, name: res.userName, id: res.userId, role: res.userRole });
       setMail("");
       setPassword("");
       setButtonHidden(false);
@@ -46,10 +53,14 @@ const LoginPage = ({userLoggedIn}) => {
     .catch(err => console.log(err));
   }
 
+  const handleForgotPassword = () => {
+        history.push('/forgot-password');
+  }
+
   return (
     <div className="login-box">
       
-      <label htmlFor="target" className="input-group">
+      <label htmlFor="target" className="input-group mt-3">
         Enter your mail :{" "}
       </label>
       <input
@@ -62,7 +73,7 @@ const LoginPage = ({userLoggedIn}) => {
       />
       <br />
 
-      <label className="input-group" htmlFor="password">
+      <label className="input-group mt-3" htmlFor="password">
         Enter your password :{" "}
       </label>
       <input
@@ -74,23 +85,23 @@ const LoginPage = ({userLoggedIn}) => {
         placeholder="Enter your password"
       />
       <br />
-      <button type="button" disabled={buttonHidden} className="btn btn-dark" onClick={handleLogin}>
+      <div className="buttons-box mt-3">
+      <button type="button" className="btn btn-outline-dark mr-1" onClick={handleForgotPassword}>
+          Forgot Password
+        </button>
+      <button type="button" disabled={buttonHidden} className="btn btn-outline-dark ml-1" onClick={handleLogin}>
         Login
       </button>
+      </div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.isLoggedIn
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     userLoggedIn: (userEmail, userName, userId, userRole) => dispatch({ type: 'LOGIN', mail: userEmail, name: userName, id: userId, role: userRole })
+//   }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    userLoggedIn: (userEmail, userName, userId, userRole) => dispatch({type: 'LOGIN', mail: userEmail, name: userName, id: userId, role: userRole })
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+// export default connect(mapDispatchToProps)(LoginPage);
+export default LoginPage;

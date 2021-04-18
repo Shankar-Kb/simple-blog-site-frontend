@@ -6,6 +6,8 @@ const SignupPage = () => {
     let [name, setName] = useState("");
     let [mail, setMail] = useState("");
     let [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [message, setMessage] = useState("");
     const [buttonHidden, setButtonHidden] = useState(false);
     
     useEffect(() => {
@@ -21,6 +23,8 @@ const SignupPage = () => {
     }, [name, mail, password])
   
     const handleSignup = () => {
+
+      if(password === confirmPassword){
       fetch(`${process.env.REACT_APP_SERVER_URL}/signup`, {
         method: "POST",
         headers: {
@@ -41,40 +45,43 @@ const SignupPage = () => {
         setMail="";
         setPassword="";
         setButtonHidden(false);
-        history.push("/");
+        history.push("/login");
         }
       })
       .catch(err => console.log(err));
+      }
+      else setMessage("The two passwords must match");
     }
   
     return (
       <div className="signup-box">
         
-        <label htmlFor="target" className="input-group">
+        <label htmlFor="name" className="input-group">
           Enter your name :{" "}
         </label>
         <input
           type="text"
-          id="target"
+          id="name"
           className="form-control"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter your name"
         />
         <br />
-        <label htmlFor="target" className="input-group">
+        <label htmlFor="mail" className="input-group mt-2">
         Enter your mail :{" "}
         </label>
         <input
           type="text"
-          id="target"
+          id="mail"
           className="form-control"
           value={mail}
           onChange={(e) => setMail(e.target.value)}
           placeholder="Enter your email"
         />
         <br />
-        <label className="input-group" htmlFor="password">
+
+        <label htmlFor="password" className="input-group mt-2">
         Enter your password :{" "}
         </label>
         <input
@@ -86,7 +93,20 @@ const SignupPage = () => {
           placeholder="Enter your password"
         />
         <br />
-        <button type="button" disabled={buttonHidden} className="btn btn-dark" onClick={handleSignup}>
+        <label htmlFor="confirm-password" className="input-group mt-2">
+        Confirm your password:{" "}
+      </label>
+      <input
+        type="password"
+        id="confirm-password"
+        className="form-control"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        placeholder="Confirm your passowrd"
+      />
+
+        <div className="error-box mt-3 mx-auto">{message}</div>
+        <button type="button" disabled={buttonHidden} className="btn btn-outline-dark mx-auto mt-3" onClick={handleSignup}>
           Signup
         </button>
       </div>

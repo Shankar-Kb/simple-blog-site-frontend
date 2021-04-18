@@ -8,6 +8,8 @@ import NavbarComp from './components/NavbarComp'
 import UserBlogs from './components/UserBlogs'
 import BlogDetailsPage from './components/BlogDetailsPage'
 import AdminPanel from './components/AdminPanel'
+import ForgotPasswordComp from './components/ForgotPasswordComp'
+import ResetPasswordComp from './components/ResetPasswordComp'
 import './App.css';
 
 function App() {
@@ -46,6 +48,16 @@ function App() {
             <Route exact path='/admin-panel' render = {(props) => {
                 return (
                     <AdminPanel {...props} />
+                )
+            }} />
+            <Route exact path='/forgot-password' render = {(props) => {
+                return (
+                    <ForgotPasswordComp {...props} />
+                )
+            }} />
+            <Route exact path='/reset-password/:id' render = {(props) => {
+                return (
+                    <ResetPasswordComp {...props} />
                 )
             }} />
             <Route exact path='/' render = {(props) => {

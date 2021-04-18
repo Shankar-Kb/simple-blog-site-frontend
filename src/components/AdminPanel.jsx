@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Modal } from "react-bootstrap";
 
-const AdminPanel = ({userRole, loggedIn}) => {
+const AdminPanel = ({userRole}) => {
 
     const [users, setUsers] = useState([]);
     const history = useHistory();
@@ -31,7 +31,7 @@ const AdminPanel = ({userRole, loggedIn}) => {
         })
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
+            //console.log(res);
             setUsers(res);
         })
         .catch((error) => console.log(error))
@@ -51,13 +51,12 @@ const AdminPanel = ({userRole, loggedIn}) => {
       fetch(`${process.env.REACT_APP_SERVER_URL}/edit-user/${id}`, {
           
           method: "PUT",
-          headers: {
-              "Content-Type": "application/json"
-            },
+          headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({
               name: userName,
-              email: userEmail
+              email: userEmail,
+              role: userRole
             })
       })
       .then((res) => res.json())
@@ -71,8 +70,13 @@ const AdminPanel = ({userRole, loggedIn}) => {
   const handleUserDelete = (id) => {
       
       fetch(`${process.env.REACT_APP_SERVER_URL}/delete-user/${id}`, {
+
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
           credentials: "include",
-          method: "DELETE"
+          body: JSON.stringify({
+              role: userRole
+            })
       })
       .then((res) => res.json())
       .then((res) => {
@@ -84,6 +88,7 @@ const AdminPanel = ({userRole, loggedIn}) => {
 
     return (
         <div className="container-fluid users-box col-6 offset-3">
+            <h2 className="text-center mb-3">Registered Users</h2>
             {users.map((elem, index) => (
                 <div key={index} className="user-box card card-body">
                     <p>{elem.name}<br />
@@ -134,8 +139,7 @@ const AdminPanel = ({userRole, loggedIn}) => {
 
 const mapStateToProps = (state) => {
     return {
-      userRole: state.userRole,
-      loggedIn: state.loggedIn
+      userRole: state.userRole
     }
   }
 
