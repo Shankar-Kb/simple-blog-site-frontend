@@ -50,11 +50,13 @@ const HomePage = () => {
             const slice = data.slice(offset, offset + perPage)
 
                   const currentPage = slice.map(( elem, index ) => (
-                    <div key={index} className="blog-box card card-body">
-                     <Link className="card-title" to={`/blog/${elem._id}`}><h3>{elem.title}</h3></Link>
-                    <p className="card-text"> {elem.snippet} </p>
-                    <p> Written By {elem.authorName}</p>
-                    <p> Written At {new Date(elem.createdAt).toString().replace(" GMT+0530 (India Standard Time)", "")}</p>
+                    <div key={index} className="blog-box card">
+                      <div className="card-body">
+                        <Link className="card-title" to={`/blog/${elem._id}`}><h3>{elem.title}</h3></Link>
+                        <p className="card-text"> {elem.snippet} </p>
+                        <p> Written By {elem.authorName}</p>
+                        <p> Written At {new Date(elem.createdAt).toString().replace(" GMT+0530 (India Standard Time)", "")}</p>
+                      </div>
                     </div>
                 ))
 
