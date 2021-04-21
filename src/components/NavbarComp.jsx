@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-//import Cookies from 'universal-cookie';
-//const cookies = new Cookies();
-
 function doesHttpOnlyCookieExist(cookiename) {
   const d = new Date();
   d.setTime(d.getTime() + (1000));
@@ -23,7 +20,7 @@ const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
   const history = useHistory();
 
   useEffect(() => {
-    //let cookie = cookies.get("jwt");
+
     if(doesHttpOnlyCookieExist('jwt')){
     fetch(`${process.env.REACT_APP_SERVER_URL}/login-check`, {
       credentials: "include"})
