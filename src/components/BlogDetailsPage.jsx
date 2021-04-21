@@ -86,9 +86,11 @@ const BlogDetailsPage = ({loggedIn}) => {
                             <h2> Comments </h2>
                             {   (comments.length === 0) ? <p className="text-center">No Comments</p> :
                                 comments.map((elem, index) => (
-                                    <div key={index} className="comment-box card card-body">
+                                    <div key={index} className="comment-box card">
+                                      <div className="card-body">
                                         <p> <b>{elem.authorName}:</b> {elem.body} <br />
                                         <b>At</b> {new Date(elem.createdAt).toString().replace(" GMT+0530 (India Standard Time)", "")}</p>
+                                      </div>
                                     </div>
                                 ))}
                         </div>

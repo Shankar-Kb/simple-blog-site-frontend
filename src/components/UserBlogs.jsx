@@ -77,7 +77,8 @@ const UserBlogs = ({userId}) => {
     return (
         <div className="container-fluid user-blogs-box col-6 offset-3">
             {blogs.map((elem, index) => (
-                <div key={index} className="blog-box card card-body">
+                <div key={index} className="blog-box card">
+                    <div className="card-body">
                     <Link className="card-title" to={`/blog/${elem._id}`} style={{ textDecoration: 'none' }}><h3 className="blog-title">{elem.title}</h3></Link>
                     <p className="card-text"> {elem.snippet} </p>
                     <p className="card-text"> {elem.body} </p>
@@ -86,6 +87,7 @@ const UserBlogs = ({userId}) => {
                     <div className="blogs-buttons-box">
                         <button type="button" className="btn btn-dark mr-1" onClick={() => { handleEditToggle(elem._id, elem.title, elem.snippet, elem.body) }}>Edit</button>
                         <button type="button" className="btn btn-dark ml-1" onClick={() => { handleBlogDelete(elem._id) }}>Delete</button>
+                    </div>
                     </div>
                 </div>
             ))}

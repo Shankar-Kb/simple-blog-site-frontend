@@ -90,13 +90,15 @@ const AdminPanel = ({userRole}) => {
         <div className="container-fluid users-box col-6 offset-3">
             <h2 className="text-center mb-3">Registered Users</h2>
             {users.map((elem, index) => (
-                <div key={index} className="user-box card card-body">
+                <div key={index} className="user-box card">
+                  <div className="card-body">
                     <p>{elem.name}<br />
                        {elem.email}</p>
                     <div className="blogs-buttons-box">
                         <button type="button" className="btn btn-dark mr-1" onClick={() => { handleEditToggle(elem._id, elem.name,  elem.email) }}>Edit</button>
                         <button type="button" className="btn btn-dark ml-1" onClick={() => { handleUserDelete(elem._id) }}>Delete</button>
                     </div>
+                  </div>
                 </div>))}
         
                 <Modal show={show} onHide={handleModalClose} backdrop="static" keyboard={false}>
