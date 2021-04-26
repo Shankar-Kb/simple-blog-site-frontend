@@ -76,6 +76,9 @@ const UserBlogs = ({userId}) => {
 
     return (
         <div className="container-fluid user-blogs-box col-6 offset-3">
+
+            { (blogs.length === 0) && <p className="font-weight-bold text-center">You have not written any blogs</p> }
+
             {blogs.map((elem, index) => (
                 <div key={index} className="blog-box card">
                     <div className="card-body">

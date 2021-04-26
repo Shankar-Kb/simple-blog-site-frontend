@@ -45,8 +45,12 @@ const SignupPage = () => {
         setMail="";
         setPassword="";
         setButtonHidden(false);
-        history.push("/login");
+        setMessage("Account successfully registered. You will be redirected to the login page");
+        setTimeout(()=>{ history.push("/login") }, 3000);
         }
+
+        if(res.errors.email) setMessage(res.errors.email)
+        if(res.errors.password) setMessage(res.errors.password)
       })
       .catch(err => console.log(err));
       }

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+
 function doesHttpOnlyCookieExist(cookiename) {
   const d = new Date();
   d.setTime(d.getTime() + (1000));
@@ -15,7 +16,7 @@ function doesHttpOnlyCookieExist(cookiename) {
   }
 }
 
-const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
+const NavbarComp = ({userName, userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
 
   const history = useHistory();
 
@@ -44,11 +45,11 @@ const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        history.go(0);
+        history.go(0)
         }
       )
       .catch(err => {
-        console.log(err)
+        console.log(err);
         history.go(0);
       });
   }
@@ -62,7 +63,7 @@ const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
         <div className="navbar-right-box">
         { (userRole==='admin') && <Link className="btn btn-dark" to="/admin-panel">Admin Panel</Link>}
         <Link className="btn btn-dark" to="/create-blog">Create a Blog</Link>
-        <Link className="btn btn-dark" to="/user-blogs">My Blogs</Link>
+        <Link className="btn btn-dark" to="/user-blogs">{userName}'s Blogs</Link>
         <button type="button" className="btn btn-dark mt-3 mb-3" onClick={handleLogout}>Logout</button>
         </div> 
           :
@@ -77,6 +78,7 @@ const NavbarComp = ({userRole, loggedIn, userLoggedOut, userLoggedIn}) => {
 
 const mapStateToProps = (state) => {
   return {
+    userName: state.userName,
     userRole: state.userRole,
     loggedIn: state.loggedIn
   }

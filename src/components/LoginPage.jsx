@@ -8,6 +8,7 @@ const LoginPage = () => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [buttonHidden, setButtonHidden] = useState(false);
+  const [message, setMessage] = useState("");
 
   const isLoggedIn = useSelector(state => state.isLoggedIn);
   const dispatch = useDispatch();
@@ -48,6 +49,12 @@ const LoginPage = () => {
       setButtonHidden(false);
       history.push('/');
       }
+      
+      if(res.errors){
+        if(res.errors.email) setMessage(res.errors.email)
+        if(res.errors.password) setMessage(res.errors.password)
+      }
+      
     })
     .catch(err => console.log(err));
   }
@@ -84,6 +91,9 @@ const LoginPage = () => {
         placeholder="Enter your password"
       />
       <br />
+
+      { message && <div className="error-box mt-3 mx-auto">{message}</div>}
+
       <div className="buttons-box mt-3">
       <button type="button" className="btn btn-outline-dark mr-1" onClick={handleForgotPassword}>
           Forgot Password
