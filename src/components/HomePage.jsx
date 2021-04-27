@@ -121,15 +121,17 @@ const HomePage = () => {
         const slice = data.slice(offset, offset + perPage)
 
               const currentPage = slice.map(( elem, index ) => (
-                <div key={index} className="blog-box card card-body">
-                 <Link className="card-title" to={`/blog/${elem._id}`} style={{ textDecoration: 'none' }}><h3 className="blog-title">{elem.title}</h3></Link>
-                 <p className="card-text"> {elem.snippet} </p>
-                 <p> <b>Written By:</b> {elem.authorName}</p>
-                 <p> <b>Written At:</b> {new Date(elem.createdAt).toString().replace(" GMT+0530 (India Standard Time)", "")}</p>
-                 { userRole === 'admin' && <div className="blogs-buttons-box">
-                    <button type="button" className="btn btn-dark mr-1" onClick={() => { handleEditToggle(elem._id, elem.title, elem.snippet, elem.body) }}>Edit</button>
-                    <button type="button" className="btn btn-dark ml-1" onClick={() => { handleBlogDelete(elem._id) }}>Delete</button>
-                  </div> }
+                <div key={index} className="blog-box card">
+                  <div className="card-body">
+                    <Link className="card-title" to={`/blog/${elem._id}`} style={{ textDecoration: 'none' }}><h3 className="blog-title">{elem.title}</h3></Link>
+                    <p className="card-text"> {elem.snippet} </p>
+                    <p> <b>Written By:</b> {elem.authorName}</p>
+                    <p> <b>Written At:</b> {new Date(elem.createdAt).toString().replace(" GMT+0530 (India Standard Time)", "")}</p>
+                    {userRole === 'admin' && <div className="blogs-buttons-box">
+                      <button type="button" className="btn btn-dark mr-1" onClick={() => { handleEditToggle(elem._id, elem.title, elem.snippet, elem.body) }}>Edit</button>
+                      <button type="button" className="btn btn-dark ml-1" onClick={() => { handleBlogDelete(elem._id) }}>Delete</button>
+                    </div>}
+                  </div>
                 </div>
             ))
 
