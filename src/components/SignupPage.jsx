@@ -15,7 +15,7 @@ const SignupPage = () => {
     }, []);
   
     useEffect(() => {
-      if(name.length > 0 && mail.length > 0 && password.length > 0){
+      if(name.length > 0 && mail.length > 0 && password.length > 0 && confirmPassword.length > 0){
         setButtonHidden(false);
       }else{
         setButtonHidden(true);
